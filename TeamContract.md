@@ -37,7 +37,7 @@ This contract sets out shared expectations and commitments for how our team will
 ---
 ## Conflict resolution
 
-* Team members will calmly discuss the issue and try to understand each other’s viewpoints to come to agreement.
+* Team members will calmly discuss the issue and try to understand each other’s viewpoints thoroughly.
 
 * If no resolution is reached, the team will consult with TA or instructor together.
 
@@ -65,7 +65,7 @@ By signing below, we acknowledge that we have read, discussed, and agreed to the
 
 Team Member Signatures:
 
-Ciny Liang
+Ciny Liang (Liang Xinning Liang)
 
 Gabriel George
 
