@@ -1,0 +1,60 @@
+package use_case.card_game_hints;
+
+import entity.Card;
+import use_case.play_card_game.utilities.SolutionGenerator;
+
+import java.util.List;
+
+public class CardGameHintsInteractor implements CardGameHintsInputDataBoundary{
+    private final CardGameHintsOutputBoundary outputBoundary;
+
+    public CardGameHintsInteractor(CardGameHintsOutputBoundary outputBoundary) {
+        this.outputBoundary = outputBoundary;
+    }
+
+    public void execute(CardGameHintsInputDataObject input) {
+        try {
+            String hint = "";
+
+            List<Card> cards = input.getCardPuzzle().getCards();
+            String sol = getSampleSolution(cards);
+            if (sol == "") {
+                hint = "No solution found! Please regenerate the question.";
+            } else {
+//                System.out.println("Solution found! " + sol);
+                hint = "Maybe try " + extractInner(sol) + " first.";
+            }
+
+            CardGameHintsOutputDataObject outputData = new CardGameHintsOutputDataObject(hint);
+            this.outputBoundary.prepareSuccessView(outputData);
+        }  catch (Exception e) {
+            this.outputBoundary.prepareFailView("Failed to get hint: " + e.getMessage());
+        }
+    }
+
+    public String getSampleSolution(List<Card> cards) {
+        return SolutionGenerator.get24Solutions(cards);
+    }
+
+    public String extractInner(String solution) {
+        int open;
+        int close;
+        if (solution.contains("))")) {
+            open = solution.lastIndexOf("(");
+            close = solution.indexOf("))");
+        } else if (solution.contains("((")) {
+            open = solution.indexOf("((") + 1; // bruh not ts getting flipped
+            close = solution.indexOf(")");
+        } else {
+            open = solution.indexOf("(");
+            close = solution.indexOf(")");
+        }
+        return solution.substring(open + 1, close);
+    }
+
+//    public String generateHint(List<Card> cards) {
+//        String sampleSolution = getSampleSolution(cards);
+//        String substring = extractInner(sampleSolution);
+//        return "Maybe try"+substring+"first.";
+//    }
+}
